@@ -28,17 +28,13 @@
 			re = (Math.ceil(prevExp/50)*50)-prevExp;
 			rePercent = ((re*100)/exp).toFixed(1);
 			var i=parseFloat(rePercent);
-			console.log(exp+":::"+re+":::"+rePercent+":::"+prevExp)
 			if(type == "Y"){
 				document.getElementById("startExp").options.length = 0;
-				while(i){
+				while(i < 100){
 					var para = document.createElement("option");
 					para.innerHTML = i.toFixed(1)+"%"
 					document.getElementById("startExp").appendChild(para);
 					i=i+parseFloat(puls);
-					if(i >= 100){
-						break;
-					}
 				}
 				doChange("N");
 			}
@@ -74,8 +70,8 @@
 						lastExp = Math.ceil((lastExp-re)/50);
 						
 					};
-					console.log(lastExp+"::");
 					last = last + lastExp;
+					console.log(level+": "+lastExp);
 				}
 				document.getElementById("cReturn").innerHTML = "";
 				document.getElementById("cReturn").append(parseInt(last)+"개");
