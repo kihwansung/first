@@ -40,6 +40,7 @@
 						break;
 					}
 				}
+				doChange("N");
 			}
 			if(type == "N"){
 				var startExp = document.getElementById("startExp").value.replace("%","");
@@ -59,12 +60,19 @@
 						break;
 					}
 					var lastExp;
+					var lastPrev;
 					if(document.getElementById("skil").value == "A"){
 						lastExp = (5*level)+50;
-						lastExp = Math.ceil(lastExp/50);
+						lastPrev = (2.5*(level-1))*((level-1)+21);
+						re = (Math.ceil(lastPrev/50)*50)-lastPrev;
+						lastExp = Math.ceil((lastExp-re)/50);
+						
 					}else if(document.getElementById("skil").value == "P"){
 						lastExp = (15*level)+40;
-						lastExp = Math.ceil(lastExp/50);
+						lastPrev = (2.5*(level-1))*(3*(level-1)+19);
+						re = (Math.ceil(lastPrev/50)*50)-lastPrev;
+						lastExp = Math.ceil((lastExp-re)/50);
+						
 					};
 					console.log(lastExp+"::");
 					last = last + lastExp;
