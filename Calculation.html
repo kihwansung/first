@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>계산기</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<script type="text/javascript">
+		window.onload = function(){
+			doChange()
+		}
+		doChange = function(type){
+			var select = document.getElementById("startExp");
+			var level = parseInt(document.getElementById("level").value);
+			var exp = 0;
+			var prevExp = 0;
+			var re;
+			var rePercent;
+			var puls;
+			  
+			if(document.getElementById("skil").value == "A"){
+				exp = (5*level)+50;
+				prevExp = (2.5*(level-1))*((level-1)+21);
+			}else if(document.getElementById("skil").value == "P"){
+				exp = (15*level)+40;
+				prevExp = (2.5*(level-1))*(3*(level-1)+19);
+			};
+			puls = ((50*100)/exp).toFixed(1);
+			re = (Math.ceil(prevExp/50)*50)-prevExp;
+			rePercent = ((re*100)/exp).toFixed(1);
+			var i=parseFloat(rePercent);
+			console.log(exp+":::"+re+":::"+rePercent+":::"+prevExp)
+			if(type == "Y"){
+				document.getElementById("startExp").options.length = 0;
+				while(i){
+					var para = document.createElement("option");
+					para.innerHTML = i.toFixed(1)+"%"
+					document.getElementById("startExp").appendChild(para);
+					i=i+parseFloat(puls);
+					if(i >= 100){
+						break;
+					}
+				}
+			}
+			if(type == "N"){
+				var startExp = document.getElementById("startExp").value.replace("%","");
+				var core = Math.ceil(exp/50);
+				var j = 0;
+				while(i < 100){
+					if(i == startExp){
+						break;
+					}
+					j++;
+					i=i+parseFloat(puls);
+				}
+				var last =parseInt(core-j);
+				while(level){
+					level++;
+					if(level == 25){
+						break;
+					}
+					var lastExp;
+					if(document.getElementById("skil").value == "A"){
+						lastExp = (5*level)+50;
+						lastExp = Math.ceil(lastExp/50);
+					}else if(document.getElementById("skil").value == "P"){
+						lastExp = (15*level)+40;
+						lastExp = Math.ceil(lastExp/50);
+					};
+					console.log(lastExp+"::");
+					last = last + lastExp;
+				}
+				document.getElementById("cReturn").innerHTML = "";
+				document.getElementById("cReturn").append(parseInt(last)+"개");
+				console.log(parseInt(core-j)+":::"+core+":::"+j);
+			}
+		}
+	</script>
+	<style type="text/css">
+		.body{
+		position: relative;
+		top: 50px;
+		text-align:center;
+		} 
+	</style>
+	<h1 align="center">계산기</h1>
+</head>
+<body>
+	<div class="body">
+		<p>
+			타입 :
+			<select id="skil" onchange="doChange('Y')">
+				<option value="P">패시브</option>
+				<option value="A">액티브</option>
+			</select>
+		</p>
+		<p>
+			레벨 :
+			<select id="level" onchange="doChange('Y')">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				<option value="9">9</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
+				<option value="13">13</option>
+				<option value="14">14</option>
+				<option value="15">15</option>
+				<option value="16">16</option>
+				<option value="17">17</option>
+				<option value="18">18</option>
+				<option value="19">19</option>
+				<option value="20">20</option>
+				<option value="21">21</option>
+				<option value="22">22</option>
+				<option value="23">23</option>
+				<option value="24">24</option>
+			</select>
+		</p>
+		<p>
+			시작 경험치 :
+			<select id="startExp" onchange="doChange('N')">
+			</select>
+		</p>
+		<p>
+			만렙까지 남은 계수: <span id ="cReturn"></span>
+			
+		</p>
+	</div>
+</body>
+</html>
